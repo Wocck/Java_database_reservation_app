@@ -1,0 +1,7 @@
+create definer = root@`%` trigger add_login_time
+    before insert
+    on login_data
+    for each row
+BEGIN
+        SET NEW.reservation_time = NOW();
+END;

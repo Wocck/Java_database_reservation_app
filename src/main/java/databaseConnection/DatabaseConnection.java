@@ -21,7 +21,6 @@ public class DatabaseConnection {
             String password = json.get("password").toString();
             String url = json.get("url").toString();
 
-            System.out.println(password);
             Class.forName(cname);
             return DriverManager.getConnection(url, username, password);
         }catch(ClassNotFoundException ex){
