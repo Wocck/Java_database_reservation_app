@@ -1,0 +1,6 @@
+{
+  "username": "root",
+  "password": "modliszka7",
+  "cname": "com.mysql.cj.jdbc.Driver",
+  "url": "jdbc:mysql://34.163.161.19:3306"
+}
