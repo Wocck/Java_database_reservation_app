@@ -60,7 +60,7 @@ public class ClassroomModel {
         PreparedStatement pr = null;
         ResultSet rs = null;
 
-        String query = "SELECT * from rooms where ROOM_ID = ?";
+        String query = "SELECT * from rooms where id_room = ?";
         try {
             pr = this.connection.prepareStatement(query);
             pr.setInt(1, this.classNumber);
@@ -79,7 +79,7 @@ public class ClassroomModel {
         PreparedStatement pr = null;
         ResultSet rs = null;
 
-        String query = "INSERT INTO ROOMS VALUES(?, ?, ?)";
+        String query = "INSERT INTO rooms VALUES(?, ?, ?)";
         try {
             pr = this.connection.prepareStatement(query);
             pr.setInt(1, this.classNumber);

@@ -119,7 +119,7 @@ public class AdminController implements Initializable {
     private ObservableList<ClassroomData> data;
 
     /**sql query used in the loadClassroomData method */
-    private String sql1 = "SELECT r.room_id, r.flr, r.seats_number, coalesce((SELECT count(equipment_id) FROM equipments WHERE r.room_id = room_id and equipment_type = 'computer' GROUP BY room_id), 0) as NUMBER_OF_COMPUTERS, coalesce((SELECT count(equipment_id) FROM equipments WHERE r.room_id = room_id and equipment_type = 'printer' GROUP BY room_id), 0) as NUMBER_OF_PRINTERS from rooms r LEFT JOIN equipments e on (e.room_id = r.room_id) GROUP BY r.room_id, r.flr, r.seats_number";
+    private String sql1 = "SELECT r.id_room, r.floor, r.seats_number, coalesce((SELECT count(equipments.id_equipment) FROM equipments WHERE r.id_room = id_room and equipment_type = 'computer' GROUP BY id_room), 0) as NUMBER_OF_COMPUTERS, coalesce((SELECT count(id_equipment) FROM equipments WHERE r.id_room = id_room and equipment_type = 'printer' GROUP BY id_room), 0) as NUMBER_OF_PRINTERS from rooms r LEFT JOIN equipments e on (e.id_room = r.id_room) GROUP BY r.id_room, r.floor, r.seats_number";
     public void initialize(URL url, ResourceBundle rb){
         this.dc = new DatabaseConnection();
         this.eqType.setItems(FXCollections.observableArrayList(typeOption.values()));

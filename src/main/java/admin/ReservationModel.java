@@ -84,7 +84,7 @@ public class ReservationModel {
         String dateS;
         String dateE;
 
-        String query = "INSERT INTO RESERVATIONS VALUES(NULL, ?, ?, ?, ?)";
+        String query = "INSERT INTO reservations VALUES(NULL, ?, ?, ?, ?)";
         try {
             pr = this.connection.prepareStatement(query);
             pr.setInt(1, this.userId);
@@ -105,7 +105,7 @@ public class ReservationModel {
     public boolean validateReservation() throws SQLException {
         PreparedStatement pr = null;
         ResultSet rs = null;
-        String query = "SELECT room_id, TO_CHAR(reservation_start, 'HH24') as start_hour, TO_CHAR(reservation_end, 'HH24') as end_hour FROM RESERVATIONS WHERE ROOM_ID = ?  and  TO_CHAR(reservation_start, 'YYYY-MM-DD') = ?";
+        String query = "SELECT id_room, CHAR(start_time, 'HH24') as start_hour, CHAR(end_time, 'HH24') as end_hour FROM reservations WHERE id_room = ?  and  CHAR(start_time, 'YYYY-MM-DD') = ?";
         try{
             pr = this.connection.prepareStatement(query);
             pr.setInt(1, this.rClassNumber);
@@ -129,7 +129,7 @@ public class ReservationModel {
         PreparedStatement pr = null;
         ResultSet rs = null;
 
-        String query = "SELECT * from ROOMS where ROOM_ID = ?";
+        String query = "SELECT * from rooms where id_room = ?";
         try {
             pr = this.connection.prepareStatement(query);
             pr.setInt(1, this.rClassNumber);

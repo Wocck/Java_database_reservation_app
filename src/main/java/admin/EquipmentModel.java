@@ -60,7 +60,7 @@ public class EquipmentModel {
         PreparedStatement pr = null;
         ResultSet rs = null;
 
-        String query = "SELECT * from ROOMS where ROOM_ID = ?";
+        String query = "SELECT * from rooms where id_room = ?";
         try {
             pr = this.connection.prepareStatement(query);
             pr.setInt(1, this.classNumber);

@@ -57,7 +57,7 @@ public class LoginModel {
         PreparedStatement pr = null;
         ResultSet rs = null;
 
-        String query = "SELECT saltt from LOGIN_DATA where LOGIN = ?";
+        String query = "SELECT saltt from login_data where LOGIN = ?";
         try {
             pr = this.connection.prepareStatement(query);
             pr.setString(1, login);
