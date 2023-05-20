@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -21,6 +22,7 @@ public class ReservationModel {
     private Integer hourS;
     private Integer hourE;
     private Integer userId;
+    private Integer rCateringId;
 
     public ReservationModel() {
         try {
@@ -74,31 +76,33 @@ public class ReservationModel {
         this.userId = userId;
     }
 
+    public void setrCateringId(Integer rCateringId) { this.rCateringId = rCateringId;}
+
     public boolean isDatabaseConnected(){
         return this.connection != null;
     }
 
     public void addReservation() throws SQLException {
         PreparedStatement pr = null;
-        ResultSet rs = null;
         String dateS;
         String dateE;
 
-        String query = "INSERT INTO reservations VALUES(NULL, ?, ?, ?, ?)";
+        String query = "INSERT INTO reservations VALUES(NULL, ?, ?, ?, ?, ?, ?)";
         try {
             pr = this.connection.prepareStatement(query);
-            pr.setInt(1, this.userId);
-            pr.setInt(2, this.rClassNumber);
+            pr.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
             dateS = this.date + " " + Integer.toString(this.hourS) + ":00:00";
             dateE = this.date + " " + Integer.toString(this.hourE) + ":00:00";
-            pr.setTimestamp(3, Timestamp.valueOf(dateS));
-            pr.setTimestamp(4, Timestamp.valueOf(dateE));
-            rs = pr.executeQuery();
+            pr.setTimestamp(2, Timestamp.valueOf(dateS));
+            pr.setTimestamp(3, Timestamp.valueOf(dateE));
+            pr.setInt(4, this.rClassNumber);
+            pr.setInt(5, this.userId);
+            pr.setInt(6, this.rCateringId);
+            int k = pr.executeUpdate();
         } catch (SQLException e){
             e.printStackTrace();
         } finally {
             pr.close();
-            rs.close();
         }
     }
 

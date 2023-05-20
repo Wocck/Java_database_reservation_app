@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
 import java.net.URL;
@@ -111,6 +112,8 @@ public class AdminController implements Initializable {
 
     @FXML
     private Label rLabelError;
+    @FXML
+    private TextField rCateringIdField;
 
     @FXML
     private Button rBookButton;
@@ -123,6 +126,14 @@ public class AdminController implements Initializable {
     public void initialize(URL url, ResourceBundle rb){
         this.dc = new DatabaseConnection();
         this.eqType.setItems(FXCollections.observableArrayList(typeOption.values()));
+    }
+
+    @FXML
+    private void restrictToNumbers(KeyEvent event) {
+        String input = rCateringIdField.getText();
+        if (!input.matches("\\d*")) {
+            rCateringIdField.setText(input.replaceAll("[^\\d]", ""));
+        }
     }
     /**
      *  Method triggered by the Refresh button
@@ -342,7 +353,9 @@ public class AdminController implements Initializable {
             if(this.rClassNumber.getText().isEmpty() ||
                     this.rStart.getText().isEmpty() ||
                     this.rEnd.getText().isEmpty() ||
-                    this.rDate.getValue() == null ){
+                    this.rDate.getValue() == null ||
+                    this.rCateringIdField.getText().isEmpty())
+            {
                 this.rLabelError.setText("Pleas fill all fields");
             } else {
                 try {
@@ -371,6 +384,7 @@ public class AdminController implements Initializable {
                 reservationModel.setHourS(start);
                 reservationModel.setHourE(end);
                 reservationModel.setUserId(100);
+                reservationModel.setrCateringId(Integer.parseInt(this.rCateringIdField.getText()));
 
                 if(!reservationModel.validateClassNumber()){
                     rLabelError.setText("Classroom with this number does not exist!");
