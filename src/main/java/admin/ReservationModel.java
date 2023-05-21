@@ -24,6 +24,37 @@ public class ReservationModel {
     private Integer userId;
     private Integer rCateringId;
 
+    private Integer changeReservationId;
+    private Integer changeClassNumber;
+    private String changeDate;
+    private Integer changeStartHour;
+    private Integer changeEndHour;
+    private Integer changeCateringId;
+
+    public void setChangeReservationId(Integer changeReservationId) {
+        this.changeReservationId = changeReservationId;
+    }
+
+    public void setChangeClassNumber(Integer changeClassNumber) {
+        this.changeClassNumber = changeClassNumber;
+    }
+
+    public void setChangeDate(String changeDate) {
+        this.changeDate = changeDate;
+    }
+
+    public void setChangeStartHour(Integer changeStartHour) {
+        this.changeStartHour = changeStartHour;
+    }
+
+    public void setChangeEndHour(Integer changeEndHour) {
+        this.changeEndHour = changeEndHour;
+    }
+
+    public void setChangeCateringId(Integer changeCateringId) {
+        this.changeCateringId = changeCateringId;
+    }
+
     public ReservationModel() {
         try {
             this.connection = DatabaseConnection.getConnection();
@@ -148,4 +179,47 @@ public class ReservationModel {
         return false;
     }
 
+    public boolean validateChangeClassNumber() throws SQLException {
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+
+        String query = "SELECT * from rooms where id_room = ?";
+        try {
+            pr = this.connection.prepareStatement(query);
+            pr.setInt(1, this.changeClassNumber);
+            rs = pr.executeQuery();
+            return rs.next();
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pr.close();
+            rs.close();
+        }
+        return false;
+    }
+
+    public void changeReservation() throws SQLException{
+        PreparedStatement pr = null;
+        String dateS;
+        String dateE;
+
+        String query = "UPDATE reservations SET reservation_date = ?, start_time = ?, end_time = ?, id_room = ?, id_users = ?, id_catering = ? WHERE id_reservation = ?";
+        try {
+            pr = this.connection.prepareStatement(query);
+            pr.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+            dateS = this.changeDate + " " + Integer.toString(this.changeStartHour) + ":00:00";
+            dateE = this.changeDate + " " + Integer.toString(this.changeEndHour) + ":00:00";
+            pr.setTimestamp(2, Timestamp.valueOf(dateS));
+            pr.setTimestamp(3, Timestamp.valueOf(dateE));
+            pr.setInt(4, this.changeClassNumber);
+            pr.setInt(5, this.userId);
+            pr.setInt(6, this.changeCateringId);
+            pr.setInt(7, this.changeReservationId);
+            int k = pr.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pr.close();
+        }
+    }
 }

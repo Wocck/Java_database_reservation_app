@@ -4,15 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f2d21da3-903e-4c12-aa3f-4c539611b577" name="Changes" comment="corrected errors">
+    <list default="true" id="f2d21da3-903e-4c12-aa3f-4c539611b577" name="Changes" comment="working registration and making reservations">
+      <change afterPath="$PROJECT_DIR$/src/main/java/admin/ReservationData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/login/UserSession.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/admin/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/admin/AdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/admin/ReservationModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/admin/ReservationModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/register/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/register/RegisterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/register/RegisterModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/register/RegisterModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/login/LoginModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/login/LoginModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/admin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/admin.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/register.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/register.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/user.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/user.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +94,8 @@
       <workItem from="1684403257403" duration="16000" />
       <workItem from="1684578346544" duration="2217000" />
       <workItem from="1684582969034" duration="5518000" />
-      <workItem from="1684603955041" duration="4807000" />
+      <workItem from="1684603955041" duration="4858000" />
+      <workItem from="1684666589565" duration="11700000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit - working database connection">
       <created>1684268214014</created>
@@ -117,7 +118,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684273739115</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="working registration and making reservations">
+      <created>1684609729858</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1684609729858</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -150,7 +158,8 @@
     <MESSAGE value="Initial commit - working database connection" />
     <MESSAGE value="xx" />
     <MESSAGE value="corrected errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="corrected errors" />
+    <MESSAGE value="working registration and making reservations" />
+    <option name="LAST_COMMIT_MESSAGE" value="working registration and making reservations" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

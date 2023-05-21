@@ -10,8 +10,20 @@ import org.mindrot.jbcrypt.BCrypt;
 /**
  * Auxiliary class for login data collected from the user
  */
+
+
 public class LoginModel {
+    private int user_id;
     Connection connection;
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
     public LoginModel(){
         try {
             this.connection = DatabaseConnection.getConnection();
@@ -32,7 +44,7 @@ public class LoginModel {
         PreparedStatement pr = null;
         ResultSet rs = null;
 
-        String query = "SELECT * from login_data where LOGIN = ? and PASSWD = ? and ADM = ?";
+        String query = "SELECT id_users from login_data where LOGIN = ? and PASSWD = ? and ADM = ?";
         try {
             pr = this.connection.prepareStatement(query);
             pr.setString(1, login);
@@ -41,6 +53,12 @@ public class LoginModel {
             pr.setString(3, isAdmin);
 
             rs = pr.executeQuery();
+            if (rs.next()) {
+                int userId = rs.getInt("id_users");
+                UserSession userSession = UserSession.getInstance();
+                userSession.setLoggedInUserId(userId);
+                return true;
+            }
             return rs.next();
         } catch (SQLException e){
             e.printStackTrace();

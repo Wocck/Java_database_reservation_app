@@ -32,7 +32,7 @@
                             <children>
                                 <HBox layoutX="351.0" layoutY="116.0" prefHeight="574.0" prefWidth="929.0">
                                     <children>
-                                        <TableView fx:id="classroomtable" prefHeight="595.0" prefWidth="1020.0">
+                                        <TableView fx:id="classroomtable" prefHeight="574.0" prefWidth="1081.0">
                                             <columns>
                                                 <TableColumn fx:id="classnumbercolumn" maxWidth="200.0" prefWidth="185.0" text="Class number" />
                                                 <TableColumn fx:id="floorcolumn" maxWidth="200.0" prefWidth="185.0" text="Floor" />
@@ -150,7 +150,7 @@
                                                         <Insets left="10.0" right="10.0" top="5.0" />
                                                     </VBox.margin>
                                                 </TextField>
-                                    <TextField fx:id="rCateringIdField" prefHeight="39.0" prefWidth="275.0" promptText="Catering ID" onKeyTyped="#restrictToNumbers"/>
+                                    <TextField fx:id="rCateringIdField" onKeyTyped="#restrictToNumbers" promptText="Catering ID" />
                                                 <Label fx:id="rLabelError" prefWidth="324.0" textAlignment="CENTER" textFill="RED">
                                                     <VBox.margin>
                                                         <Insets left="10.0" />
@@ -251,25 +251,27 @@
                                     </children>
                                 </HBox>
                                     <Button layoutX="16.0" layoutY="900.0" mnemonicParsing="false" onAction="#loadClassroomData" prefHeight="34.0" prefWidth="326.0" text="Refresh" />
-                        <VBox alignment="TOP_CENTER" layoutX="404.0" layoutY="724.0" prefHeight="241.0" prefWidth="336.0">
+                        <VBox alignment="TOP_CENTER" layoutX="360.0" layoutY="696.0" prefHeight="241.0" prefWidth="336.0">
                            <children>
-                              <Label text="Change Reservation" />
-                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="Reservation ID" />
-                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="New Class Number" />
-                              <DatePicker maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="New Date" />
-                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="New Start Hour" />
-                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="New End Hour" />
-                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="New Catering ID" />
+                              <Label text="Change Reservation" textAlignment="CENTER" />
+                              <TextField fx:id="changeReservationId" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="Reservation ID" />
+                              <TextField fx:id="changeClassNum" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="New Class Number" />
+                              <DatePicker fx:id="changeDate" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="New Date" />
+                              <TextField fx:id="changeStartHour" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="New Start Hour" />
+                              <TextField fx:id="changeEndHour" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="New End Hour" />
+                              <TextField fx:id="changeCateringId" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="New Catering ID" />
+                              <Button fx:id="changeReservationButton" mnemonicParsing="false" onAction="#changeReservationAction" text="Change Reservation" />
+                              <Label fx:id="changeErrorLabel" prefHeight="27.0" prefWidth="196.0" textFill="#d71212" />
                            </children>
                         </VBox>
-                        <TableView layoutX="730.0" layoutY="736.0" prefHeight="200.0" prefWidth="733.0">
+                        <TableView fx:id="reservationTable" layoutX="702.0" layoutY="737.0" prefHeight="200.0" prefWidth="760.0">
                           <columns>
                             <TableColumn fx:id="reservationIdColumn" prefWidth="148.0" text="Reservation ID" />
-                              <TableColumn fx:id="classNumberColumn" prefWidth="150.0" text="Class Number" />
+                              <TableColumn fx:id="reservationClassNumberColumn" prefWidth="150.0" text="Class Number" />
                               <TableColumn fx:id="dateColumn" minWidth="0.0" prefWidth="101.0" text="Date" />
                               <TableColumn fx:id="startHourColumn" minWidth="0.0" prefWidth="101.0" text="Start Hour" />
                               <TableColumn fx:id="endHourColumn" minWidth="0.0" prefWidth="121.0" text="End Hour" />
-                              <TableColumn fx:id="cateringIdColumn" minWidth="0.0" prefWidth="109.0" text="Catering ID" />
+                              <TableColumn fx:id="cateringIdColumn" minWidth="0.0" prefWidth="138.0" text="Catering ID" />
                           </columns>
                         </TableView>
                             </children>
