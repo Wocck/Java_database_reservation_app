@@ -77,20 +77,18 @@ public class EquipmentModel {
 
     public void addEquipment() throws SQLException {
         PreparedStatement pr = null;
-        ResultSet rs = null;
 
         String query = "INSERT INTO equipments VALUES(NULL, ?, ?, ?)";
         try {
             pr = this.connection.prepareStatement(query);
-            pr.setInt(1, this.classNumber);
-            pr.setString(2, this.type);
-            pr.setString(3, this.model);
-            rs = pr.executeQuery();
+            pr.setInt(3, this.classNumber);
+            pr.setString(1, this.type);
+            pr.setString(2, this.model);
+            pr.executeUpdate();
         } catch (SQLException e){
             e.printStackTrace();
         } finally {
             pr.close();
-            rs.close();
         }
     }
 }

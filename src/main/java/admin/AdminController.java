@@ -33,6 +33,12 @@ public class AdminController implements Initializable {
     ReservationModel reservationModel = new ReservationModel();
 
     @FXML
+    private TextField addClassCatering;
+
+    @FXML
+    private TextField addClassRoomType;
+
+    @FXML
     private TextField classNumber;
 
     @FXML
@@ -355,6 +361,7 @@ public class AdminController implements Initializable {
                 }
 
                 equipmentModel.addEquipment();
+                eqErrorLabel.setTextFill(Color.GREEN);
                 eqErrorLabel.setText("Equipment added");
             }
         } catch (Exception e){
@@ -372,19 +379,26 @@ public class AdminController implements Initializable {
                 Integer classNumber = Integer.parseInt(this.classNumber.getText());
                 Integer floor = Integer.parseInt(this.floor.getText());
                 Integer numberOfSeats = Integer.parseInt(this.numberOfSeats.getText());
+                Byte AddClassCatering = Byte.parseByte(this.addClassCatering.getText());
+                String AddClassRoomType = this.addClassRoomType.getText();
             }
             catch (Exception e){
 
                 classErrorLabel.setText("Values must be a number!");
                 return;
             }
+
             Integer classNumber = Integer.parseInt(this.classNumber.getText());
             Integer floor = Integer.parseInt(this.floor.getText());
             Integer numberOfSeats = Integer.parseInt(this.numberOfSeats.getText());
+            Byte AddClassCatering = Byte.parseByte(this.addClassCatering.getText());
+            String AddClassRoomType = this.addClassRoomType.getText();
 
             classroomModel.setClassNumber(classNumber);
             classroomModel.setFloor(floor);
             classroomModel.setNumberOfSeats(numberOfSeats);
+            classroomModel.setAddClassRoomType(AddClassRoomType);
+            classroomModel.setAddClassCatering(AddClassCatering);
 
             if(!classroomModel.validateClassNumber()){
                 classErrorLabel.setText("Classroom with this number already exists!");
@@ -392,6 +406,7 @@ public class AdminController implements Initializable {
             }
 
             classroomModel.addClassroom();
+            this.classErrorLabel.setTextFill(Color.GREEN);
             classErrorLabel.setText("Classroom added");
         } catch (Exception e){
             e.printStackTrace();
@@ -505,7 +520,11 @@ public class AdminController implements Initializable {
                 reservationModel.setChangeCateringId(Integer.parseInt(this.changeCateringId.getText()));
                 reservationModel.setUserId(loggedInUserId);
                 if (!reservationModel.validateChangeClassNumber()) {
-                    rLabelError.setText("Classroom with this number does not exist!");
+                    changeErrorLabel.setText("Classroom with this number does not exist!");
+                }
+                if(!reservationModel.validateChangeReservation()){
+                    changeErrorLabel.setText("This classroom is already reserved for this date!");
+                    return;
                 }
                 reservationModel.changeReservation();
                 this.changeErrorLabel.setTextFill(Color.GREEN);

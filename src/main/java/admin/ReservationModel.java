@@ -140,7 +140,7 @@ public class ReservationModel {
     public boolean validateReservation() throws SQLException {
         PreparedStatement pr = null;
         ResultSet rs = null;
-        String query = "SELECT id_room, CHAR(start_time, 'HH24') as start_hour, CHAR(end_time, 'HH24') as end_hour FROM reservations WHERE id_room = ?  and  CHAR(start_time, 'YYYY-MM-DD') = ?";
+        String query = "SELECT id_room, DATE_FORMAT(start_time, '%H') as start_hour, DATE_FORMAT(end_time, '%H') as end_hour FROM reservations WHERE id_room = ? and DATE_FORMAT(start_time, '%Y-%m-%d')=?";
         try{
             pr = this.connection.prepareStatement(query);
             pr.setInt(1, this.rClassNumber);
@@ -148,6 +148,29 @@ public class ReservationModel {
             rs = pr.executeQuery();
             while(rs.next()){
                 if ((this.hourS < rs.getInt("end_hour") && this.hourE > rs.getInt("start_hour")) || (this.hourE > rs.getInt("start_hour") && this.hourS < rs.getInt("end_hour"))) {
+                    return false;
+                }
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pr.close();
+            rs.close();
+        }
+        return true;
+    }
+
+    public boolean validateChangeReservation() throws SQLException {
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String query = "SELECT id_reservation, id_room, DATE_FORMAT(start_time, '%H') as start_hour, DATE_FORMAT(end_time, '%H') as end_hour FROM reservations WHERE id_room = ? and DATE_FORMAT(start_time, '%Y-%m-%d')=?";
+        try{
+            pr = this.connection.prepareStatement(query);
+            pr.setInt(1, this.changeClassNumber);
+            pr.setString(2, this.changeDate);
+            rs = pr.executeQuery();
+            while(rs.next()){
+                if (((this.changeStartHour < rs.getInt("end_hour") && this.changeEndHour > rs.getInt("start_hour")) || (this.changeEndHour > rs.getInt("start_hour") && this.changeStartHour < rs.getInt("end_hour")) && this.changeReservationId != rs.getInt("id_reservation"))) {
                     return false;
                 }
             }

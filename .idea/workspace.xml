@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f2d21da3-903e-4c12-aa3f-4c539611b577" name="Changes" comment="working registration and making reservations">
-      <change afterPath="$PROJECT_DIR$/src/main/java/admin/ReservationData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/login/UserSession.java" afterDir="false" />
+    <list default="true" id="f2d21da3-903e-4c12-aa3f-4c539611b577" name="Changes" comment="working altering reservations feature">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/admin/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/admin/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/admin/ClassroomModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/admin/ClassroomModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/admin/EquipmentModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/admin/EquipmentModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/admin/ReservationModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/admin/ReservationModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/login/LoginModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/login/LoginModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/admin/typeOption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/admin/typeOption.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/admin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/admin.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/user.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/user.fxml" afterDir="false" />
     </list>
@@ -95,7 +95,8 @@
       <workItem from="1684578346544" duration="2217000" />
       <workItem from="1684582969034" duration="5518000" />
       <workItem from="1684603955041" duration="4858000" />
-      <workItem from="1684666589565" duration="11700000" />
+      <workItem from="1684666589565" duration="12352000" />
+      <workItem from="1684739963617" duration="6263000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit - working database connection">
       <created>1684268214014</created>
@@ -125,7 +126,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684609729858</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="working altering reservations feature">
+      <created>1684683285502</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1684683285502</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -159,7 +167,8 @@
     <MESSAGE value="xx" />
     <MESSAGE value="corrected errors" />
     <MESSAGE value="working registration and making reservations" />
-    <option name="LAST_COMMIT_MESSAGE" value="working registration and making reservations" />
+    <MESSAGE value="working altering reservations feature" />
+    <option name="LAST_COMMIT_MESSAGE" value="working altering reservations feature" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

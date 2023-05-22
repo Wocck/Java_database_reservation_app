@@ -15,6 +15,24 @@ public class ClassroomModel {
     private Integer classNumber;
     private Integer floor;
     private Integer numberOfSeats;
+    private byte addClassCatering;
+    private String addClassRoomType;
+
+    public byte getAddClassCatering() {
+        return addClassCatering;
+    }
+
+    public String getAddClassRoomType() {
+        return addClassRoomType;
+    }
+
+    public void setAddClassCatering(byte addClassCatering) {
+        this.addClassCatering = addClassCatering;
+    }
+
+    public void setAddClassRoomType(String addClassRoomType) {
+        this.addClassRoomType = addClassRoomType;
+    }
 
     public ClassroomModel() {
         try {
@@ -70,27 +88,26 @@ public class ClassroomModel {
             e.printStackTrace();
         } finally {
             pr.close();
-            rs.close();
         }
         return false;
     }
 
     public void addClassroom() throws SQLException {
         PreparedStatement pr = null;
-        ResultSet rs = null;
 
-        String query = "INSERT INTO rooms VALUES(?, ?, ?)";
+        String query = "INSERT INTO rooms VALUES(?, ?, ?, ?, ?)";
         try {
             pr = this.connection.prepareStatement(query);
             pr.setInt(1, this.classNumber);
             pr.setInt(2, this.floor);
             pr.setInt(3, this.numberOfSeats);
-            rs = pr.executeQuery();
+            pr.setByte(4, this.addClassCatering);
+            pr.setString(5, this.addClassRoomType);
+            pr.executeUpdate();
         } catch (SQLException e){
             e.printStackTrace();
         } finally {
             pr.close();
-            rs.close();
         }
     }
 }

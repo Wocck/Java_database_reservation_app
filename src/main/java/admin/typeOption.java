@@ -4,7 +4,7 @@ package admin;
  * Definition of the types of equipment available in the classroom
  */
 public enum typeOption {
-    computer, printer, projector, other;
+    computer, printer, projector, speakers, tv, other;
     private typeOption(){}
 
     public String value(){
