@@ -170,7 +170,9 @@ public class ReservationModel {
             pr.setString(2, this.changeDate);
             rs = pr.executeQuery();
             while(rs.next()){
-                if (((this.changeStartHour < rs.getInt("end_hour") && this.changeEndHour > rs.getInt("start_hour")) || (this.changeEndHour > rs.getInt("start_hour") && this.changeStartHour < rs.getInt("end_hour")) && this.changeReservationId != rs.getInt("id_reservation"))) {
+                if ((this.changeStartHour < rs.getInt("end_hour") && this.changeEndHour > rs.getInt("start_hour")) || (this.changeEndHour > rs.getInt("start_hour") && this.changeStartHour < rs.getInt("end_hour"))) {
+                    if(this.changeReservationId == rs.getInt("id_reservation"))
+                        continue;
                     return false;
                 }
             }
