@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2d21da3-903e-4c12-aa3f-4c539611b577" name="Changes" comment="xx">
-      <change beforePath="$PROJECT_DIR$/src/main/java/admin/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/admin/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/admin/ClassroomModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/admin/ClassroomModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/admin/EquipmentModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/admin/EquipmentModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/admin/ReservationModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/admin/ReservationModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/login/LoginModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/login/LoginModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,6 +83,7 @@
       <workItem from="1684265741932" duration="2712000" />
       <workItem from="1684269411436" duration="3312000" />
       <workItem from="1684272743216" duration="967000" />
+      <workItem from="1684309509290" duration="1588000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit - working database connection">
       <created>1684268214014</created>
