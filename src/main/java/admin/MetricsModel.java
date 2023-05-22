@@ -2,9 +2,12 @@ package admin;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import databaseConnection.DatabaseConnection;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class MetricsModel {
     private int totalReservations;
@@ -14,6 +17,19 @@ public class MetricsModel {
     private AverageDurationPerUser[] averageDurationPerUser;
     private AverageDurationPerRoom[] averageDurationPerRoom;
     private int mostBookedRoom;
+    Connection connection;
+
+    public MetricsModel() {
+        try {
+            this.connection = DatabaseConnection.getConnection();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        if(this.connection == null) {
+            System.out.println("Failed to connect to DB: Exit 1");
+            System.exit(1);
+        }
+    }
 
     public void setTotalReservations(int totalReservations) {
         this.totalReservations = totalReservations;

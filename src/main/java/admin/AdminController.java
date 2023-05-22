@@ -13,12 +13,10 @@ import javafx.scene.paint.Color;
 import login.UserSession;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+
 
 
 /** Main class responsible for all admin functionalities */
@@ -533,6 +531,64 @@ public class AdminController implements Initializable {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void generateRaport() throws SQLException{
+        String gueryTotalNum = "SELECT COUNT(*) AS total_reservations FROM reservations";
+        String queryDuration = "SELECT AVG(TIMESTAMPDIFF(MINUTE, start_time, end_time)) AS average_duration FROM reservations";
+        String queryBuisiestDay = "SELECT DATE(start_time) AS reservation_day, COUNT(*) AS reservation_count FROM reservations GROUP BY reservation_day ORDER BY reservation_count DESC LIMIT 1";
+        String querybuisiestTimeSlot = "SELECT HOUR(start_time) AS reservation_hour, COUNT(*) AS reservation_count FROM reservations GROUP BY reservation_hour ORDER BY reservation_count DESC LIMIT 1";
+        String queryAvgReservationTime = "SELECT user_id, AVG(TIMESTAMPDIFF(MINUTE, start_time, end_time)) AS average_duration FROM reservations GROUP BY user_id";
+        String queryAvgdurationRoom = "SELECT room_id, AVG(TIMESTAMPDIFF(MINUTE, start_time, end_time)) AS average_duration FROM reservations GROUP BY room_id";
+        String queryMostBookedRoom = "SELECT room_id, COUNT(*) AS reservation_count FROM reservations GROUP BY room_id ORDER BY reservation_count DESC LIMIT 1";
+
+        MetricsModel metrics = new MetricsModel();
+        Statement statement = metrics.connection.createStatement();
+
+        ResultSet totalNumResult = statement.executeQuery("SELECT COUNT(*) AS total_reservations FROM reservations");
+        ResultSet durationResult = statement.executeQuery("SELECT AVG(TIMESTAMPDIFF(MINUTE, start_time, end_time)) AS average_duration FROM reservations");
+        ResultSet busiestDayResult = statement.executeQuery("SELECT DATE(start_time) AS reservation_day, COUNT(*) AS reservation_count FROM reservations GROUP BY reservation_day ORDER BY reservation_count DESC LIMIT 1");
+        ResultSet busiestTimeSlotResult = statement.executeQuery("SELECT HOUR(start_time) AS reservation_hour, COUNT(*) AS reservation_count FROM reservations GROUP BY reservation_hour ORDER BY reservation_count DESC LIMIT 1");
+        ResultSet avgReservationTimeResult = statement.executeQuery("SELECT user_id, AVG(TIMESTAMPDIFF(MINUTE, start_time, end_time)) AS average_duration FROM reservations GROUP BY user_id");
+        ResultSet avgDurationRoomResult = statement.executeQuery("SELECT room_id, AVG(TIMESTAMPDIFF(MINUTE, start_time, end_time)) AS average_duration FROM reservations GROUP BY room_id");
+        ResultSet mostBookedRoomResult = statement.executeQuery("SELECT room_id, COUNT(*) AS reservation_count FROM reservations GROUP BY room_id ORDER BY reservation_count DESC LIMIT 1");
+
+        // Populate the MetricsModel with the query results
+        if (totalNumResult.next()) {
+            metrics.setTotalReservations(totalNumResult.getInt("total_reservations"));
+        }
+
+        if (durationResult.next()) {
+            metrics.setReservationDuration(durationResult.getDouble("average_duration"));
+        }
+
+        if (busiestDayResult.next()) {
+            metrics.setBusiestReservationDay(busiestDayResult.getString("reservation_day"));
+        }
+
+        if (busiestTimeSlotResult.next()) {
+            metrics.setBusiestReservationTimeSlot(busiestTimeSlotResult.getInt("reservation_hour"));
+        }
+
+        // Populate average duration per user
+        while (avgReservationTimeResult.next()) {
+            AverageDurationPerUser avgDurationPerUser = new AverageDurationPerUser();
+            avgDurationPerUser.setUserId(avgReservationTimeResult.getString("user_id"));
+            avgDurationPerUser.setAverageDuration(avgReservationTimeResult.getDouble("average_duration"));
+            metrics.addAverageDurationPerUser(avgDurationPerUser);
+        }
+
+        // Populate average duration per room
+        while (avgDurationRoomResult.next()) {
+            AverageDurationPerRoom avgDurationPerRoom = new AverageDurationPerRoom();
+            avgDurationPerRoom.setRoomId(avgDurationRoomResult.getInt("room_id"));
+            avgDurationPerRoom.setAverageDuration(avgDurationRoomResult.getDouble("average_duration"));
+            metrics.addAverageDurationPerRoom(avgDurationPerRoom);
+        }
+
+        if (mostBookedRoomResult.next()) {
+            metrics.setMostBookedRoom(mostBookedRoomResult.getInt("room_id"));
         }
     }
 }
