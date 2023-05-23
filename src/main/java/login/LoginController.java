@@ -97,7 +97,8 @@ public class LoginController implements Initializable {
             UserController userController = loader.getController();
             Scene scene = new Scene(root);
             userStage.setScene(scene);
-            userStage.setResizable(false);
+            userStage.setResizable(true);
+            userStage.setFullScreen(true);
             userStage.setTitle("User Dashboard");
             userStage.show();
         } catch (IOException e){
