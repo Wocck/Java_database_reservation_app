@@ -10,8 +10,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import login.UserSession;
 
+import java.io.File;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
@@ -154,6 +157,9 @@ public class AdminController implements Initializable {
     @FXML
     private TableColumn<ReservationData, Integer> cateringIdColumn;
 
+    @FXML
+    private Label generateRaportLabel;
+
     private ObservableList<ReservationData> reservationData;
 
     /**sql query used in the loadClassroomData method */
@@ -231,28 +237,41 @@ public class AdminController implements Initializable {
         Integer seats = classroomFilterData.getfSeats();
         Integer printers = classroomFilterData.getfPrinters();
         Integer projectors = classroomFilterData.getfProjectors();
-        String sql2 = String.format("SELECT ROOM_ID, FLR, SEATS_NUMBER, (SELECT COUNT(EQUIPMENT_ID) FROM EQUIPMENTS WHERE EQUIPMENT_TYPE = 'computer' AND ROOMS.ROOM_ID = EQUIPMENTS.ROOM_ID) as computers, (SELECT COUNT(EQUIPMENT_ID) FROM EQUIPMENTS WHERE EQUIPMENT_TYPE = 'projector' AND ROOMS.ROOM_ID = EQUIPMENTS.ROOM_ID) as projectors FROM ROOMS WHERE %d <= (SELECT COUNT(EQUIPMENT_ID) FROM EQUIPMENTS WHERE EQUIPMENT_TYPE = 'computer' AND ROOMS.ROOM_ID = EQUIPMENTS.ROOM_ID) AND %d <= (SELECT COUNT(EQUIPMENT_ID) FROM EQUIPMENTS WHERE EQUIPMENT_TYPE = 'printer' AND ROOMS.ROOM_ID = EQUIPMENTS.ROOM_ID) AND %d <= (SELECT COUNT(EQUIPMENT_ID) FROM EQUIPMENTS WHERE EQUIPMENT_TYPE = 'projector' AND ROOMS.ROOM_ID = EQUIPMENTS.ROOM_ID) AND %d <= SEATS_NUMBER", computers, printers, projectors, seats);
+        PreparedStatement pr = null;
+        PreparedStatement pr2 = null;
+        ResultSet rs = null;
+        ResultSet rs2 = null;
+        // computers, printers, projectors, seats)
+        String query = "SELECT id_room, floor, SEATS_NUMBER, (SELECT COUNT(id_equipment) FROM equipments WHERE EQUIPMENT_TYPE = 'computer' AND rooms.id_room = equipments.id_room) as computers, (SELECT COUNT(id_equipment) FROM equipments WHERE equipment_type = 'projector' AND rooms.id_room = equipments.id_room) as projectors FROM rooms WHERE ? <= (SELECT COUNT(id_equipment) FROM equipments WHERE equipment_type = 'computer' AND rooms.id_room = equipments.id_room) AND ? <= (SELECT COUNT(id_equipment) FROM equipments WHERE equipment_type = 'printer' AND rooms.id_room = equipments.id_room) AND ? <= (SELECT COUNT(id_equipment) FROM equipments WHERE equipment_type = 'projector' AND rooms.id_room = equipments.id_room) AND ? <= rooms.seats_number";
+
         try {
             Connection conn = DatabaseConnection.getConnection();
             this.data = FXCollections.observableArrayList();
-
-            ResultSet rs = conn.createStatement().executeQuery(sql2);
+            pr = conn.prepareStatement(query);
+            pr.setInt(1, computers);
+            pr.setInt(2, printers);
+            pr.setInt(3, projectors);
+            pr.setInt(4, seats);
+            rs = pr.executeQuery();
             while (rs.next()){
                 Integer hourS = classroomFilterData.getfStart();
                 Integer hourE = classroomFilterData.getfEnd();
                 String roomId = rs.getString(1);
                 String date = classroomFilterData.getfDate();
-                String sqlQuerry = String.format("SELECT TO_CHAR(reservation_start, 'HH24') as start_hour, TO_CHAR(reservation_end, 'HH24') as end_hour FROM RESERVATIONS WHERE ROOM_ID = '%s' and TO_CHAR(reservation_start, 'YYYY-MM-DD') = '%s'", roomId, date);
-                ResultSet querryResult = conn.createStatement().executeQuery(sqlQuerry);
+                String query2 = "SELECT DATE_FORMAT(start_time, '%H') as start_hour, DATE_FORMAT(end_time, '%H') as end_hour FROM reservations WHERE id_room = ? and DATE_FORMAT(start_time, '%Y-%m-%d') = ?";
+                pr2 = conn.prepareStatement(query2);
+                pr2.setInt(1, Integer.parseInt(roomId));
+                pr2.setString(2, date);
+                rs2 = pr2.executeQuery();
                 int condition = 0;
-                while (querryResult.next()){
-                    if (((hourS < querryResult.getInt("end_hour") && hourE > querryResult.getInt("start_hour")) || (hourE > querryResult.getInt("start_hour") && hourS < querryResult.getInt("end_hour")))) {
+                while (rs2.next()){
+                    if (((hourS < rs2.getInt("end_hour") && hourE > rs2.getInt("start_hour")) || (hourE > rs2.getInt("start_hour") && hourS < rs2.getInt("end_hour")))) {
                         condition = 1;
                     }
                 }
-                querryResult.close();
+                rs2.close();
                 if (condition == 0){
-                    this.data.add(new ClassroomData(rs.getString(1), rs.getString(2), rs.getNString(3), rs.getInt(4), rs.getInt(5)));
+                    this.data.add(new ClassroomData(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5)));
                 }
             }
             rs.close();
@@ -534,61 +553,32 @@ public class AdminController implements Initializable {
         }
     }
 
-    public void generateRaport() throws SQLException{
-        String gueryTotalNum = "SELECT COUNT(*) AS total_reservations FROM reservations";
-        String queryDuration = "SELECT AVG(TIMESTAMPDIFF(MINUTE, start_time, end_time)) AS average_duration FROM reservations";
-        String queryBuisiestDay = "SELECT DATE(start_time) AS reservation_day, COUNT(*) AS reservation_count FROM reservations GROUP BY reservation_day ORDER BY reservation_count DESC LIMIT 1";
-        String querybuisiestTimeSlot = "SELECT HOUR(start_time) AS reservation_hour, COUNT(*) AS reservation_count FROM reservations GROUP BY reservation_hour ORDER BY reservation_count DESC LIMIT 1";
-        String queryAvgReservationTime = "SELECT user_id, AVG(TIMESTAMPDIFF(MINUTE, start_time, end_time)) AS average_duration FROM reservations GROUP BY user_id";
-        String queryAvgdurationRoom = "SELECT room_id, AVG(TIMESTAMPDIFF(MINUTE, start_time, end_time)) AS average_duration FROM reservations GROUP BY room_id";
-        String queryMostBookedRoom = "SELECT room_id, COUNT(*) AS reservation_count FROM reservations GROUP BY room_id ORDER BY reservation_count DESC LIMIT 1";
+    public void handleGenerateReport(ActionEvent event){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Metrics");
 
-        MetricsModel metrics = new MetricsModel();
-        Statement statement = metrics.connection.createStatement();
+        // Set the initial directory for the dialog (optional)
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
-        ResultSet totalNumResult = statement.executeQuery("SELECT COUNT(*) AS total_reservations FROM reservations");
-        ResultSet durationResult = statement.executeQuery("SELECT AVG(TIMESTAMPDIFF(MINUTE, start_time, end_time)) AS average_duration FROM reservations");
-        ResultSet busiestDayResult = statement.executeQuery("SELECT DATE(start_time) AS reservation_day, COUNT(*) AS reservation_count FROM reservations GROUP BY reservation_day ORDER BY reservation_count DESC LIMIT 1");
-        ResultSet busiestTimeSlotResult = statement.executeQuery("SELECT HOUR(start_time) AS reservation_hour, COUNT(*) AS reservation_count FROM reservations GROUP BY reservation_hour ORDER BY reservation_count DESC LIMIT 1");
-        ResultSet avgReservationTimeResult = statement.executeQuery("SELECT user_id, AVG(TIMESTAMPDIFF(MINUTE, start_time, end_time)) AS average_duration FROM reservations GROUP BY user_id");
-        ResultSet avgDurationRoomResult = statement.executeQuery("SELECT room_id, AVG(TIMESTAMPDIFF(MINUTE, start_time, end_time)) AS average_duration FROM reservations GROUP BY room_id");
-        ResultSet mostBookedRoomResult = statement.executeQuery("SELECT room_id, COUNT(*) AS reservation_count FROM reservations GROUP BY room_id ORDER BY reservation_count DESC LIMIT 1");
+        // Set a file extension filter (optional)
+        FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
+        fileChooser.getExtensionFilters().add(extensionFilter);
 
-        // Populate the MetricsModel with the query results
-        if (totalNumResult.next()) {
-            metrics.setTotalReservations(totalNumResult.getInt("total_reservations"));
+        // Show the file save dialog
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        File file = fileChooser.showSaveDialog(stage);
+
+        // Save the metrics to the selected file
+        if (file != null) {
+            MetricsModel metrics = new MetricsModel();
+            metrics.generateRaport();
+            metrics.saveToJsonFile(file.getAbsolutePath());
+            this.generateRaportLabel.setTextFill(Color.GREEN);
+            this.generateRaportLabel.setText("Report saved to file!");;
         }
-
-        if (durationResult.next()) {
-            metrics.setReservationDuration(durationResult.getDouble("average_duration"));
-        }
-
-        if (busiestDayResult.next()) {
-            metrics.setBusiestReservationDay(busiestDayResult.getString("reservation_day"));
-        }
-
-        if (busiestTimeSlotResult.next()) {
-            metrics.setBusiestReservationTimeSlot(busiestTimeSlotResult.getInt("reservation_hour"));
-        }
-
-        // Populate average duration per user
-        while (avgReservationTimeResult.next()) {
-            AverageDurationPerUser avgDurationPerUser = new AverageDurationPerUser();
-            avgDurationPerUser.setUserId(avgReservationTimeResult.getString("user_id"));
-            avgDurationPerUser.setAverageDuration(avgReservationTimeResult.getDouble("average_duration"));
-            metrics.addAverageDurationPerUser(avgDurationPerUser);
-        }
-
-        // Populate average duration per room
-        while (avgDurationRoomResult.next()) {
-            AverageDurationPerRoom avgDurationPerRoom = new AverageDurationPerRoom();
-            avgDurationPerRoom.setRoomId(avgDurationRoomResult.getInt("room_id"));
-            avgDurationPerRoom.setAverageDuration(avgDurationRoomResult.getDouble("average_duration"));
-            metrics.addAverageDurationPerRoom(avgDurationPerRoom);
-        }
-
-        if (mostBookedRoomResult.next()) {
-            metrics.setMostBookedRoom(mostBookedRoomResult.getInt("room_id"));
+        else {
+            this.generateRaportLabel.setTextFill(Color.RED);
+            this.generateRaportLabel.setText("Report not saved!");
         }
     }
 }
