@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f2d21da3-903e-4c12-aa3f-4c539611b577" name="Changes" comment="completed MetricsModel class with saving do json">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/admin/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/admin/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/admin/MetricsModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/admin/MetricsModel.java" afterDir="false" />
-    </list>
+    <list default="true" id="f2d21da3-903e-4c12-aa3f-4c539611b577" name="Changes" comment="working on metrics" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,7 +82,7 @@
       <workItem from="1684269411436" duration="3312000" />
       <workItem from="1684272743216" duration="967000" />
       <workItem from="1684309509290" duration="1588000" />
-      <workItem from="1684748237437" duration="8515000" />
+      <workItem from="1684748237437" duration="8565000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit - working database connection">
       <created>1684268214014</created>
@@ -130,7 +126,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684768936725</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="working on metrics">
+      <created>1684789918860</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1684789918860</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -165,7 +168,8 @@
     <MESSAGE value="Working altering reservation and smaller admin window" />
     <MESSAGE value="updated gitignore" />
     <MESSAGE value="completed MetricsModel class with saving do json" />
-    <option name="LAST_COMMIT_MESSAGE" value="completed MetricsModel class with saving do json" />
+    <MESSAGE value="working on metrics" />
+    <option name="LAST_COMMIT_MESSAGE" value="working on metrics" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
