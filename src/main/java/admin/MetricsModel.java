@@ -19,6 +19,7 @@ public class MetricsModel {
     private String dateEnd;
 
     private int totalReservations;
+
     private double reservationDuration;
     private String busiestReservationDay;
     private int busiestReservationTimeSlot;
@@ -39,26 +40,6 @@ public class MetricsModel {
         }
     }
 
-    public void setTotalReservations(int totalReservations) {
-        this.totalReservations = totalReservations;
-    }
-
-    public void setReservationDuration(double reservationDuration) {
-        this.reservationDuration = reservationDuration;
-    }
-
-    public void setBusiestReservationDay(String busiestReservationDay) {
-        this.busiestReservationDay = busiestReservationDay;
-    }
-
-    public void setBusiestReservationTimeSlot(int busiestReservationTimeSlot) {
-        this.busiestReservationTimeSlot = busiestReservationTimeSlot;
-    }
-
-    public void setMostBookedRoom(int mostBookedRoom) {
-        this.mostBookedRoom = mostBookedRoom;
-    }
-
     public int getTotalReservations() {
         return totalReservations;
     }
@@ -75,10 +56,6 @@ public class MetricsModel {
         return busiestReservationTimeSlot;
     }
 
-    public int getMostBookedRoom() {
-        return mostBookedRoom;
-    }
-
     public ArrayList<AverageDurationPerUser> getAverageDurationPerUser() {
         return averageDurationPerUser;
     }
@@ -87,12 +64,8 @@ public class MetricsModel {
         return averageDurationPerRoom;
     }
 
-    public void setAverageDurationPerRoom(ArrayList<AverageDurationPerRoom> averageDurationPerRoom) {
-        this.averageDurationPerRoom = averageDurationPerRoom;
-    }
-
-    public void setAverageDurationPerUser(ArrayList<AverageDurationPerUser> averageDurationPerUser) {
-        this.averageDurationPerUser = averageDurationPerUser;
+    public int getMostBookedRoom() {
+        return mostBookedRoom;
     }
 
     public void setUsers(String users) {

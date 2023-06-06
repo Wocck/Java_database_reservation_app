@@ -573,9 +573,10 @@ public class AdminController implements Initializable {
         } else
             metrics.setDateStart(dateStart.toString());
         if(dateEnd == null){
-            LocalDate today = LocalDate.now();
+            /*LocalDate today = LocalDate.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            metrics.setDateEnd(today.format(formatter));
+            metrics.setDateEnd(today.format(formatter));*/
+            metrics.setDateEnd("2100-01-01");
         } else
             metrics.setDateEnd(dateEnd.toString());
 
