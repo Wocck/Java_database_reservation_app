@@ -12,5 +12,4 @@ public class UserController extends AdminController {
     public void initialize(URL url, ResourceBundle rb){
         this.dc = new DatabaseConnection();
     }
-
 }

@@ -18,8 +18,10 @@ import java.io.File;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /** Main class responsible for all admin functionalities */
@@ -158,7 +160,15 @@ public class AdminController implements Initializable {
     private TableColumn<ReservationData, Integer> cateringIdColumn;
 
     @FXML
-    private Label generateRaportLabel;
+    private Label generateReportLabel;
+    @FXML
+    private DatePicker reportStart;
+    @FXML
+    private DatePicker reportEnd;
+    @FXML
+    private TextField reportRooms;
+    @FXML
+    private TextField reportUsers;
 
     private ObservableList<ReservationData> reservationData;
 
@@ -554,6 +564,40 @@ public class AdminController implements Initializable {
     }
 
     public void handleGenerateReport(ActionEvent event){
+        MetricsModel metrics = new MetricsModel();
+
+        LocalDate dateStart = this.reportStart.getValue();
+        LocalDate dateEnd = this.reportEnd.getValue();
+        if(dateStart == null){
+            metrics.setDateStart("2000-01-01");
+        } else
+            metrics.setDateStart(dateStart.toString());
+        if(dateEnd == null){
+            /*LocalDate today = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            metrics.setDateEnd(today.format(formatter));*/
+            metrics.setDateEnd("2100-01-01");
+        } else
+            metrics.setDateEnd(dateEnd.toString());
+
+        String users = this.reportUsers.getText();
+        String rooms = this.reportRooms.getText();
+        if(users.isEmpty()){
+            metrics.setUsers("");
+        } else{
+            metrics.setUsers(users);
+        }
+        if(rooms.isEmpty()){
+            metrics.setRooms("");
+        } else {
+            metrics.setRooms(rooms);
+        }
+        if(!(isValidUsersRoomsInput(users) && isValidUsersRoomsInput(rooms))){
+            this.generateReportLabel.setTextFill(Color.RED);
+            this.generateReportLabel.setText("check users or rooms format!");
+            return;
+        }
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Metrics");
 
@@ -570,15 +614,24 @@ public class AdminController implements Initializable {
 
         // Save the metrics to the selected file
         if (file != null) {
-            MetricsModel metrics = new MetricsModel();
             metrics.generateRaport();
             metrics.saveToJsonFile(file.getAbsolutePath());
-            this.generateRaportLabel.setTextFill(Color.GREEN);
-            this.generateRaportLabel.setText("Report saved to file!");;
+            this.generateReportLabel.setTextFill(Color.GREEN);
+            this.generateReportLabel.setText("Report saved to file!");;
         }
         else {
-            this.generateRaportLabel.setTextFill(Color.RED);
-            this.generateRaportLabel.setText("Report not saved!");
+            this.generateReportLabel.setTextFill(Color.RED);
+            this.generateReportLabel.setText("Report not saved!");
         }
+    }
+
+    public boolean isValidUsersRoomsInput(String input) {
+        if (input.isEmpty()) {
+            return true;
+        }
+        String pattern = "^'(\\d+)'(,'(\\d+)')*$";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(input);
+        return m.matches();
     }
 }
