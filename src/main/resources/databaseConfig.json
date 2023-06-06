@@ -1,6 +1,6 @@
 {
-  "username": "root",
-  "password": "modliszka7",
+  "username": "bdcc3c79b049bc",
+  "password": "520b6ffe",
   "cname": "com.mysql.cj.jdbc.Driver",
-  "url": "jdbc:mysql://34.163.161.19:3306/SystemRezerwacji"
+  "url": "jdbc:mysql://eu-cdbr-west-03.cleardb.net:3306/heroku_10cb83fa0cc42ae"
 }
