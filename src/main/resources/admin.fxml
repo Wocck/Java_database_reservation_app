@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -20,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1159.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.AdminController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1159.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.AdminController">
     <children>
         <TabPane layoutX="3.0" prefHeight="666.0" prefWidth="1154.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
@@ -241,7 +236,7 @@
                               <TableColumn fx:id="cateringIdColumn" minWidth="0.0" prefWidth="78.0" text="Catering ID" />
                           </columns>
                         </TableView>
-                        <VBox layoutX="953.0" layoutY="114.0" prefHeight="281.0" prefWidth="197.0">
+                        <VBox layoutX="953.0" layoutY="224.0" prefHeight="153.0" prefWidth="197.0">
                            <children>
                               <Label prefHeight="17.0" prefWidth="120.0" text="Add equipment">
                                  <font>
@@ -280,12 +275,16 @@
                         </VBox>
                                     <Button layoutX="54.0" layoutY="548.0" mnemonicParsing="false" onAction="#loadClassroomData" prefHeight="34.0" prefWidth="236.0" text="Refresh" />
                         <Label fx:id="changeErrorLabel" layoutX="328.0" layoutY="603.0" prefHeight="17.0" prefWidth="93.0" textFill="#d71212" />
-                        <Button layoutX="967.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleGenerateReport" prefHeight="39.0" prefWidth="169.0" text="Generate Report" textAlignment="CENTER" textFill="#14c33a">
+                        <Button layoutX="967.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleGenerateReport" prefHeight="39.0" prefWidth="169.0" text="Generate Report" textAlignment="CENTER" textFill="#14c33a">
                            <font>
                               <Font name="Berlin Sans FB" size="18.0" />
                            </font>
                         </Button>
                         <Label fx:id="generateRaportLabel" layoutX="972.0" layoutY="58.0" prefHeight="36.0" prefWidth="161.0" />
+                        <DatePicker fx:id="raport_start" layoutX="966.0" layoutY="82.0" prefHeight="25.0" prefWidth="83.0" promptText="start" />
+                        <DatePicker fx:id="raport_end" layoutX="1052.0" layoutY="82.0" prefHeight="25.0" prefWidth="81.0" promptText="end" />
+                        <TextField fx:id="raport_users" layoutX="968.0" layoutY="115.0" prefHeight="25.0" prefWidth="165.0" promptText="userId1;userId2;..." />
+                        <TextField fx:id="raport_rooms" layoutX="968.0" layoutY="146.0" prefHeight="25.0" prefWidth="165.0" promptText="roomNb1;roomNb2;..." />
                             </children>
                         </AnchorPane>
                     </content>
