@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f2d21da3-903e-4c12-aa3f-4c539611b577" name="Changes" comment="working on metrics" />
+    <list default="true" id="f2d21da3-903e-4c12-aa3f-4c539611b577" name="Changes" comment="added filters to Report generation">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,21 +37,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/wojte/AppData/Local/SceneBuilder/SceneBuilder.exe",
-    "nodejs_package_manager_path": "npm"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/wojte/AppData/Local/SceneBuilder/SceneBuilder.exe&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.Main" />
@@ -83,6 +85,8 @@
       <workItem from="1684272743216" duration="967000" />
       <workItem from="1684309509290" duration="1588000" />
       <workItem from="1684748237437" duration="8565000" />
+      <workItem from="1684916009406" duration="797000" />
+      <workItem from="1686039946196" duration="1299000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit - working database connection">
       <created>1684268214014</created>
@@ -133,7 +137,21 @@
       <option name="project" value="LOCAL" />
       <updated>1684789918860</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="working on metrics">
+      <created>1684916113393</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1684916113393</updated>
+    </task>
+    <task id="LOCAL-00009" summary="added filters to Report generation">
+      <created>1686040498099</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1686040498099</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,7 +187,8 @@
     <MESSAGE value="updated gitignore" />
     <MESSAGE value="completed MetricsModel class with saving do json" />
     <MESSAGE value="working on metrics" />
-    <option name="LAST_COMMIT_MESSAGE" value="working on metrics" />
+    <MESSAGE value="added filters to Report generation" />
+    <option name="LAST_COMMIT_MESSAGE" value="added filters to Report generation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
