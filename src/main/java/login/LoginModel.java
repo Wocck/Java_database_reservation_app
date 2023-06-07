@@ -7,6 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.mindrot.jbcrypt.BCrypt;
+
+import javax.xml.crypto.Data;
+
 /**
  * Auxiliary class for login data collected from the user
  */
@@ -24,12 +27,8 @@ public class LoginModel {
         this.user_id = user_id;
     }
 
-    public LoginModel(){
-        try {
-            this.connection = DatabaseConnection.getConnection();
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
+    public LoginModel() throws SQLException {
+        this.connection = DatabaseConnection.getConnection();
         if(this.connection == null) {
             System.out.println("Failed to connect to DB: Exit 1");
             System.exit(1);

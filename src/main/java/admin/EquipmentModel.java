@@ -16,12 +16,8 @@ public class EquipmentModel {
     private String model;
     private String type;
 
-    public EquipmentModel() {
-        try {
-            this.connection = DatabaseConnection.getConnection();
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
+    public EquipmentModel() throws SQLException {
+        this.connection = DatabaseConnection.getConnection();
         if(this.connection == null) {
             System.out.println("Failed to connect to DB: Exit 1");
             System.exit(1);

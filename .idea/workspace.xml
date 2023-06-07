@@ -4,8 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f2d21da3-903e-4c12-aa3f-4c539611b577" name="Changes" comment="added filters to Report generation">
+    <list default="true" id="f2d21da3-903e-4c12-aa3f-4c539611b577" name="Changes" comment="x">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/admin/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/admin/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/admin/ClassroomModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/admin/ClassroomModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/admin/EquipmentModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/admin/EquipmentModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/admin/MetricsModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/admin/MetricsModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/admin/ReservationModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/admin/ReservationModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/login/LoginApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/login/LoginApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/login/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/login/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/login/LoginModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/login/LoginModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/register/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/register/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/register/RegisterModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/register/RegisterModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/admin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/admin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/databaseConfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/databaseConfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,21 +50,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/wojte/AppData/Local/SceneBuilder/SceneBuilder.exe&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "database.data.extractors.current.export.id": "SQL Inserts",
+    "database.data.extractors.current.id": "SQL Inserts",
+    "last_opened_file_path": "C:/Users/wojte/AppData/Local/SceneBuilder/SceneBuilder.exe",
+    "nodejs_package_manager_path": "npm"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.Main" />
@@ -86,7 +101,9 @@
       <workItem from="1684309509290" duration="1588000" />
       <workItem from="1684748237437" duration="8565000" />
       <workItem from="1684916009406" duration="797000" />
-      <workItem from="1686039946196" duration="1299000" />
+      <workItem from="1686039946196" duration="1343000" />
+      <workItem from="1686123206663" duration="2663000" />
+      <workItem from="1686139949403" duration="12250000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit - working database connection">
       <created>1684268214014</created>
@@ -151,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686040498099</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="x">
+      <created>1686061951921</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1686061951921</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,15 +212,26 @@
     <MESSAGE value="completed MetricsModel class with saving do json" />
     <MESSAGE value="working on metrics" />
     <MESSAGE value="added filters to Report generation" />
-    <option name="LAST_COMMIT_MESSAGE" value="added filters to Report generation" />
+    <MESSAGE value="x" />
+    <option name="LAST_COMMIT_MESSAGE" value="x" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/register/RegisterModel.java</url>
-          <line>120</line>
+          <line>117</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/admin/ReservationModel.java</url>
+          <line>118</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/admin/AdminController.java</url>
+          <line>461</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

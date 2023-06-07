@@ -55,12 +55,8 @@ public class ReservationModel {
         this.changeCateringId = changeCateringId;
     }
 
-    public ReservationModel() {
-        try {
-            this.connection = DatabaseConnection.getConnection();
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
+    public ReservationModel() throws SQLException {
+        this.connection = DatabaseConnection.getConnection();
         if(this.connection == null) {
             System.out.println("Failed to connect to DB: Exit 1");
             System.exit(1);
@@ -189,7 +185,7 @@ public class ReservationModel {
         PreparedStatement pr = null;
         ResultSet rs = null;
 
-        String query = "SELECT * from rooms where id_room = ?";
+        String query = "SELECT * from rooms where room_number = ?";
         try {
             pr = this.connection.prepareStatement(query);
             pr.setInt(1, this.rClassNumber);
@@ -246,5 +242,24 @@ public class ReservationModel {
         } finally {
             pr.close();
         }
+    }
+
+    public boolean validateChangeUserId() throws SQLException {
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String query = "SELECT id_reservation, id_users FROM reservations WHERE id_users = ? AND id_reservation = ?";
+        try{
+            pr = this.connection.prepareStatement(query);
+            pr.setInt(1, this.userId);
+            pr.setInt(2, this.changeReservationId);
+            rs = pr.executeQuery();
+            return rs.next();
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pr.close();
+            rs.close();
+        }
+        return true;
     }
 }

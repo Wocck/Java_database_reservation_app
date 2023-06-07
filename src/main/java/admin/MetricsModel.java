@@ -28,12 +28,9 @@ public class MetricsModel {
     private int mostBookedRoom;
     Connection connection;
 
-    public MetricsModel() {
-        try {
-            this.connection = DatabaseConnection.getConnection();
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
+    public MetricsModel() throws SQLException {
+        this.connection = DatabaseConnection.getConnection();
+
         if(this.connection == null) {
             System.out.println("Failed to connect to DB: Exit 1");
             System.exit(1);

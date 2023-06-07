@@ -18,12 +18,9 @@ public class RegisterModel {
     private int age;
     private String phone;
 
-    public RegisterModel(){
-        try {
-            this.connection = DatabaseConnection.getConnection();
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
+    public RegisterModel() throws SQLException {
+        this.connection = DatabaseConnection.getConnection();
+
         if(this.connection == null) {
             System.out.println("Failed to connect to DB: Exit 1");
             System.exit(1);

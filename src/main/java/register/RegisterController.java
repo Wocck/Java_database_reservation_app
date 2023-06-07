@@ -11,10 +11,14 @@ import javafx.stage.Stage;
 import login.LoginApp;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /** Main class responsible for registration */
 public class RegisterController implements Initializable {
+
+    public RegisterController() throws SQLException {
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
