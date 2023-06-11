@@ -34,12 +34,8 @@ public class ClassroomModel {
         this.addClassRoomType = addClassRoomType;
     }
 
-    public ClassroomModel() {
-        try {
-            this.connection = DatabaseConnection.getConnection();
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
+    public ClassroomModel() throws SQLException {
+        this.connection = DatabaseConnection.getConnection();
         if(this.connection == null) {
             System.out.println("Failed to connect to DB: Exit 1");
             System.exit(1);
@@ -78,7 +74,7 @@ public class ClassroomModel {
         PreparedStatement pr = null;
         ResultSet rs = null;
 
-        String query = "SELECT * from rooms where id_room = ?";
+        String query = "SELECT * from rooms where room_number = ?";
         try {
             pr = this.connection.prepareStatement(query);
             pr.setInt(1, this.classNumber);
@@ -95,14 +91,15 @@ public class ClassroomModel {
     public void addClassroom() throws SQLException {
         PreparedStatement pr = null;
 
-        String query = "INSERT INTO rooms VALUES(?, ?, ?, ?, ?)";
+        String query = "INSERT INTO rooms VALUES(?, ?, ?, ?, ?, ?)";
         try {
             pr = this.connection.prepareStatement(query);
             pr.setInt(1, this.classNumber);
-            pr.setInt(2, this.floor);
-            pr.setInt(3, this.numberOfSeats);
-            pr.setByte(4, this.addClassCatering);
-            pr.setString(5, this.addClassRoomType);
+            pr.setInt(2, this.classNumber);
+            pr.setInt(3, this.floor);
+            pr.setInt(4, this.numberOfSeats);
+            pr.setByte(5, this.addClassCatering);
+            pr.setString(6, this.addClassRoomType);
             pr.executeUpdate();
         } catch (SQLException e){
             e.printStackTrace();

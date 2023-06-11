@@ -16,6 +16,7 @@ import user.UserController;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -38,7 +39,12 @@ public class LoginController implements Initializable {
     public Label loginStatus;
     @FXML
     public Label optionLabel;
+
+    public LoginController() throws SQLException {
+    }
+
     public void initialize(URL url, ResourceBundle rb){
+
         if(loginModel.isDatabaseConnected()){
             this.dbStatus.setText("Connected");
         } else {

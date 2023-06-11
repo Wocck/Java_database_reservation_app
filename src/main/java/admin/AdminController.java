@@ -35,6 +35,8 @@ public class AdminController implements Initializable {
 
     ReservationModel reservationModel = new ReservationModel();
 
+    int loggedInUserId;
+
     @FXML
     private TextField addClassCatering;
 
@@ -170,12 +172,21 @@ public class AdminController implements Initializable {
     @FXML
     private TextField reportUsers;
 
+    @FXML
+    private Tab paneTab;
+
     private ObservableList<ReservationData> reservationData;
 
     /**sql query used in the loadClassroomData method */
     private String sql1 = "SELECT r.id_room, r.floor, r.seats_number, coalesce((SELECT count(equipments.id_equipment) FROM equipments WHERE r.id_room = id_room and equipment_type = 'computer' GROUP BY id_room), 0) as NUMBER_OF_COMPUTERS, coalesce((SELECT count(id_equipment) FROM equipments WHERE r.id_room = id_room and equipment_type = 'printer' GROUP BY id_room), 0) as NUMBER_OF_PRINTERS from rooms r LEFT JOIN equipments e on (e.id_room = r.id_room) GROUP BY r.id_room, r.floor, r.seats_number";
+
+    public AdminController() throws SQLException {
+    }
+
     public void initialize(URL url, ResourceBundle rb){
-        this.dc = new DatabaseConnection();
+        UserSession userSession = UserSession.getInstance();
+        loggedInUserId = userSession.getLoggedInUserId();
+        this.paneTab.setText("User_" + loggedInUserId);
         this.eqType.setItems(FXCollections.observableArrayList(typeOption.values()));
     }
 
@@ -410,7 +421,8 @@ public class AdminController implements Initializable {
                 String AddClassRoomType = this.addClassRoomType.getText();
             }
             catch (Exception e){
-
+                classErrorLabel.setText("");
+                classErrorLabel.setTextFill(Color.RED);
                 classErrorLabel.setText("Values must be a number!");
                 return;
             }
@@ -428,12 +440,14 @@ public class AdminController implements Initializable {
             classroomModel.setAddClassCatering(AddClassCatering);
 
             if(!classroomModel.validateClassNumber()){
+                classErrorLabel.setTextFill(Color.RED);
                 classErrorLabel.setText("Classroom with this number already exists!");
                 return;
             }
 
             classroomModel.addClassroom();
-            this.classErrorLabel.setTextFill(Color.GREEN);
+            classErrorLabel.setText("");
+            classErrorLabel.setTextFill(Color.GREEN);
             classErrorLabel.setText("Classroom added");
         } catch (Exception e){
             e.printStackTrace();
@@ -506,9 +520,6 @@ public class AdminController implements Initializable {
     }
 
     public void changeReservationAction(ActionEvent event) {
-        UserSession userSession = UserSession.getInstance();
-        int loggedInUserId = userSession.getLoggedInUserId();
-
         try {
             if (this.changeReservationId.getText().isEmpty() ||
                     this.changeStartHour.getText().isEmpty() ||
@@ -547,10 +558,18 @@ public class AdminController implements Initializable {
                 reservationModel.setChangeCateringId(Integer.parseInt(this.changeCateringId.getText()));
                 reservationModel.setUserId(loggedInUserId);
                 if (!reservationModel.validateChangeClassNumber()) {
+                    changeErrorLabel.setTextFill(Color.RED);
                     changeErrorLabel.setText("Classroom with this number does not exist!");
+                    return;
                 }
                 if(!reservationModel.validateChangeReservation()){
+                    changeErrorLabel.setTextFill(Color.RED);
                     changeErrorLabel.setText("This classroom is already reserved for this date!");
+                    return;
+                }
+                if(!reservationModel.validateChangeUserId()){
+                    changeErrorLabel.setTextFill(Color.RED);
+                    changeErrorLabel.setText("You cannot alter this reservation");
                     return;
                 }
                 reservationModel.changeReservation();
@@ -563,7 +582,7 @@ public class AdminController implements Initializable {
         }
     }
 
-    public void handleGenerateReport(ActionEvent event){
+    public void handleGenerateReport(ActionEvent event) throws SQLException {
         MetricsModel metrics = new MetricsModel();
 
         LocalDate dateStart = this.reportStart.getValue();
