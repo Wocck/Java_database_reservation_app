@@ -29,6 +29,7 @@ public class ReservationModel {
     private String changeDate;
     private Integer changeStartHour;
     private Integer changeEndHour;
+
     private Integer changeCateringId;
 
     public void setChangeReservationId(Integer changeReservationId) {
@@ -53,6 +54,14 @@ public class ReservationModel {
 
     public void setChangeCateringId(Integer changeCateringId) {
         this.changeCateringId = changeCateringId;
+    }
+
+    public Integer getrCateringId() {
+        return rCateringId;
+    }
+
+    public Integer getChangeCateringId() {
+        return changeCateringId;
     }
 
     public ReservationModel() throws SQLException {
@@ -147,6 +156,24 @@ public class ReservationModel {
                     return false;
                 }
             }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pr.close();
+            rs.close();
+        }
+        return true;
+    }
+
+    public boolean validateCatering(int cateringId) throws SQLException {
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String query = "SELECT id_catering from catering where id_catering = ?";
+        try{
+            pr = this.connection.prepareStatement(query);
+            pr.setInt(1, cateringId);
+            rs = pr.executeQuery();
+            return rs.next();
         } catch (SQLException e){
             e.printStackTrace();
         } finally {

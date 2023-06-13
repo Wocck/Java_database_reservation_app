@@ -499,12 +499,19 @@ public class AdminController implements Initializable {
                 reservationModel.setrCateringId(Integer.parseInt(this.rCateringIdField.getText()));
 
                 if(!reservationModel.validateClassNumber()){
+                    rLabelError.setTextFill(Color.RED);
                     rLabelError.setText("Classroom with this number does not exist!");
                     return;
                 }
 
                 if(!reservationModel.validateReservation()){
+                    rLabelError.setTextFill(Color.RED);
                     rLabelError.setText("This classroom is already reserved for this date!");
+                    return;
+                }
+                if(!reservationModel.validateCatering(reservationModel.getrCateringId())){
+                    rLabelError.setTextFill(Color.RED);
+                    rLabelError.setText("Catering with this id does not exist!");
                     return;
                 }
 
@@ -570,6 +577,11 @@ public class AdminController implements Initializable {
                 if(!reservationModel.validateChangeUserId()){
                     changeErrorLabel.setTextFill(Color.RED);
                     changeErrorLabel.setText("You cannot alter this reservation");
+                    return;
+                }
+                if(!reservationModel.validateCatering(reservationModel.getChangeCateringId())){
+                    changeErrorLabel.setTextFill(Color.RED);
+                    changeErrorLabel.setText("Catering with this id does not exist!");
                     return;
                 }
                 reservationModel.changeReservation();
